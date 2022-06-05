@@ -4,9 +4,6 @@ import HigherLowerData
 import pyautogui
 
 
-def clearscreen():
-    print("\n" * 100)
-
 def rand_account():
     chosen_account = random.choice(HigherLowerData.data)
 
@@ -15,7 +12,6 @@ def rand_account():
         followers = chosen_account['follower_count']
         description = chosen_account['description']
         country = chosen_account['country']
-
     return name, followers, description, country
 
 
@@ -31,27 +27,28 @@ def game():
     score = 0
     while not game_over:
         print(HigherLowerData.logo)
-        name_1, followers_1, description_1, country_1 = rand_account()
-        name_2, followers_2, description_2, country_2 = rand_account()
-        if name_1 == name_2:
-            name_2, followers_2, description_2, country_2 = rand_account()
+        name_A, followers_A, description_A, country_A = rand_account()
+        name_B, followers_B, description_B, country_B = rand_account()
+        if name_A == name_B:
+            name_B, followers_B, description_B, country_B = rand_account()
 
         if score > 0:
             print(f'You are right! Current score: {score}')
-        print(f'Compare A: {name_1}, {description_1}, {country_1} ')
+        print(f'Compare A: {name_A}, {description_A}, {country_A} ')
         print(HigherLowerData.vs)
-        print(f'Against B: {name_2}, {description_2}, {country_2}')
+        print(f'Against B: {name_B}, {description_B}, {country_B}')
         guess = input('Who has more followers? Type "A" or "B" ').upper()
-        most_followed = which_is_higher(followers_1, followers_2)
+        most_followed = which_is_higher(followers_A, followers_B)
         if guess == most_followed:
             score += 1
         else:
             game_over = True
-        print(f'{name_1}M Followers: {followers_1}M')
-        print(f'{name_2}M Followers: {followers_2}M')
+        print(f'{name_A}M Followers: {followers_A}M')
+        print(f'{name_B}M Followers: {followers_B}M')
         time.sleep(3)
         pyautogui.hotkey('ctrl', ',')
     print(f'You Lost!\nFinal score: {score}')
+    print(HigherLowerData.Lose)
 
 
 play = 'yes'
